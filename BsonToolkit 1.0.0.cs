@@ -118,34 +118,28 @@ namespace ComputerBeacon.Bson
 				{
 					// Double
 					case 0x01:
-						Console.WriteLine("Double {0}", stream.Position);
 						key = ReadCString(stream);
 						stream.Read(buff, 0, 8);
 						obj.InternalAdd(key, BitConverter.ToDouble(buff, 0));
-						Console.WriteLine("Double2 {0}", stream.Position);
 						break;
 
 					// string
 					case 0x02:
-						Console.WriteLine("string {0}", stream.Position);
 						obj.InternalAdd(ReadCString(stream), ReadString(stream));
 						break;
 
 					// Objects
 					case 0x03:
-						Console.WriteLine("Objects {0}", stream.Position);
 						obj.InternalAdd(ReadCString(stream), BsonParser.Parse(stream, false));
 						break;
 
 					// Array
 					case 0x04:
-						Console.WriteLine("Array {0}", stream.Position);
 						obj.InternalAdd(ReadCString(stream), BsonParser.Parse(stream, true));
 						break;
 
 					// Boolean
 					case 0x08:
-						Console.WriteLine("Boolean {0}", stream.Position);
 						key = ReadCString(stream);
 						stream.Read(buff, 7, 1);
 						obj.InternalAdd(key, BitConverter.ToBoolean(buff, 7));
@@ -153,13 +147,11 @@ namespace ComputerBeacon.Bson
 
 					// Null
 					case 0x0A:
-						Console.WriteLine("Null {0}", stream.Position);
 						obj.InternalAdd(ReadCString(stream), null);
 						break;
 
 					// Int32
 					case 0x10:
-						Console.WriteLine("Int32 {0}", stream.Position);
 						key = ReadCString(stream);
 						stream.Read(buff, 4, 4);
 						obj.InternalAdd(key, BitConverter.ToInt32(buff, 4));
@@ -167,7 +159,6 @@ namespace ComputerBeacon.Bson
 
 					// Int64
 					case 0x12:
-						Console.WriteLine("Int64 {0}", stream.Position);
 						key = ReadCString(stream);
 						stream.Read(buff, 0, 8);
 						obj.InternalAdd(key, BitConverter.ToInt64(buff, 0));
