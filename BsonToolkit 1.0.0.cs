@@ -1,4 +1,4 @@
-﻿//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
 // DSON Toolkit 1.0.0
 // Released: 2014.07.31
 // http://github.com/RyuaNerin/DsonTookit
@@ -14,7 +14,7 @@ namespace ComputerBeacon.Bson
 {
 	public static class BsonExtension
 	{
-		public static byte[] ToBytes(this JsonObject jo)
+		public static byte[] ToBytes(JsonObject jo)
 		{
 			byte[] arr;
 			using (MemoryStream stream = new MemoryStream())
@@ -26,7 +26,7 @@ namespace ComputerBeacon.Bson
 
 			return arr;
 		}
-		public static byte[] ToBytes(this JsonArray ja)
+		public static byte[] ToBytes(JsonArray ja)
 		{
 			byte[] arr;
 			using (MemoryStream stream = new MemoryStream())
@@ -38,11 +38,11 @@ namespace ComputerBeacon.Bson
 
 			return arr;
 		}
-		public static void BsonWrite(this JsonObject jo, Stream outStream)
+		public static void BsonWrite(JsonObject jo, Stream outStream)
 		{
 			Byteifier.byteify(jo, outStream);
 		}
-		public static void BsonWrite(this JsonArray ja, Stream outStream)
+		public static void BsonWrite(JsonArray ja, Stream outStream)
 		{
 			Byteifier.byteify(ja, outStream);
 		}
@@ -283,7 +283,7 @@ namespace ComputerBeacon.Bson
 				{
 					stream.WriteByte(0x08);
 					WriteCString(stream, key);
-					stream.WriteByte((bool)obj ? (byte)0x01 : (byte)0x02);
+					stream.WriteByte((bool)obj ? (byte)0x01 : (byte)0x00);
 
 					return;
 				}
@@ -297,7 +297,7 @@ namespace ComputerBeacon.Bson
 				{
 					stream.WriteByte(0x10);
 					WriteCString(stream, key);
-					WriteBytes(stream, BitConverter.GetBytes(unchecked((int)obj)));
+					WriteBytes(stream, BitConverter.GetBytes(Convert.ToInt32(obj)));
 
 					return;
 				}
@@ -307,12 +307,12 @@ namespace ComputerBeacon.Bson
 				{
 					stream.WriteByte(0x12);
 					WriteCString(stream, key);
-					WriteBytes(stream, BitConverter.GetBytes(unchecked((long)obj)));
+					WriteBytes(stream, BitConverter.GetBytes(Convert.ToInt64(obj)));
 
 					return;
 				}
 
-				if (obj == typeof(decimal))
+				if (obj is decimal)
 					throw new FormatException("decimal is not supported in BsonToolkit 1.0.0");
 			}
 		}
