@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////
-// DSON Toolkit 1.0.1
-// Released: 2015.01.27
+// DSON Toolkit 1.0.2
+// Released: 2015.03.14
 // http://github.com/RyuaNerin/BsonTookit
 //////////////////////////////////////////////////////////////////////////
 
@@ -19,7 +19,7 @@ namespace ComputerBeacon.Bson
 			byte[] arr;
 			using (MemoryStream stream = new MemoryStream())
 			{
-				Byteifier.byteify(jo, stream);
+				Bytifier.bytify(jo, stream);
 				arr = stream.ToArray();
 				stream.Dispose();
 			}
@@ -31,7 +31,7 @@ namespace ComputerBeacon.Bson
 			byte[] arr;
 			using (MemoryStream stream = new MemoryStream())
 			{
-				Byteifier.byteify(ja, stream);
+				Bytifier.byteify(ja, stream);
 				arr = stream.ToArray();
 				stream.Dispose();
 			}
@@ -40,11 +40,11 @@ namespace ComputerBeacon.Bson
 		}
 		public static void BsonWrite(JsonObject jo, Stream outStream)
 		{
-			Byteifier.byteify(jo, outStream);
+			Bytifier.bytify(jo, outStream);
 		}
 		public static void BsonWrite(JsonArray ja, Stream outStream)
 		{
-			Byteifier.byteify(ja, outStream);
+			Bytifier.byteify(ja, outStream);
 		}
 	}
 
@@ -198,9 +198,9 @@ namespace ComputerBeacon.Bson
 		}
 	}
 
-	class Byteifier
+	class Bytifier
 	{
-		public static void byteify(JsonObject jo, Stream outStream)
+		public static void bytify(JsonObject jo, Stream outStream)
 		{
 			using (MemoryStream stream = new MemoryStream())
 			{
@@ -246,7 +246,7 @@ namespace ComputerBeacon.Bson
 				{
 					stream.WriteByte(0x03);
 					WriteCString(stream, key);
-					byteify((JsonObject)obj, stream);
+					bytify((JsonObject)obj, stream);
 
 					return;
 				}
