@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////
-// DSON Toolkit 1.0.2
-// Released: 2015.03.14
+// DSON Toolkit 1.0.3
+// Released: 2015.07.19
 // http://github.com/RyuaNerin/BsonTookit
 //////////////////////////////////////////////////////////////////////////
 
@@ -14,7 +14,7 @@ namespace ComputerBeacon.Bson
 {
 	public static class BsonExtension
 	{
-		public static byte[] ToBytes(JsonObject jo)
+		public static byte[] ToBytes(this JsonObject jo)
 		{
 			byte[] arr;
 			using (MemoryStream stream = new MemoryStream())
@@ -26,7 +26,7 @@ namespace ComputerBeacon.Bson
 
 			return arr;
 		}
-		public static byte[] ToBytes(JsonArray ja)
+		public static byte[] ToBytes(this JsonArray ja)
 		{
 			byte[] arr;
 			using (MemoryStream stream = new MemoryStream())
@@ -38,11 +38,11 @@ namespace ComputerBeacon.Bson
 
 			return arr;
 		}
-		public static void BsonWrite(JsonObject jo, Stream outStream)
+		public static void BsonWrite(this JsonObject jo, Stream outStream)
 		{
 			Bytifier.bytify(jo, outStream);
 		}
-		public static void BsonWrite(JsonArray ja, Stream outStream)
+		public static void BsonWrite(this JsonArray ja, Stream outStream)
 		{
 			Bytifier.byteify(ja, outStream);
 		}
